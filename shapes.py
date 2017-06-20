@@ -66,13 +66,14 @@ class Shape(object):
 	CUBE = "cube"
 	
 	#Constructor
-	def __init__(self, x, y, z, type):
+	def __init__(self, x, y, z, type, colour):
 		
 		#Store the parameters
 		self.x = x
 		self.y = y
 		self.z = z
 		self.type = type
+		self.colour = colour
 
 	#Define pythagoral function
 	def pythagoras(self, s):
@@ -80,14 +81,25 @@ class Shape(object):
 		#Return the distance between the shapes
 		return math.sqrt(math.pow(abs(self.x - s.x) , 2) + math.pow(abs(self.y - s.y)) + math.pow(abs(self.z - s.z), 2))
 		
+	#Create a function to add vertices
+	def addverts(self, v):
+		self.vertices = v
+		
+	#Create a function to move the object in space
+	def move(self,x, y, z):
+		
+		#Move each of the vertices
+		for i in range(len(self.vertices)):
+			self.vertices[i] = (self.vertices[i][0] + x, self.vertices[i][1] + y, self.vertices[i][2] + z)
+		
 #Create a cube class that extends the properties of a basic shape
 class Cube(Shape):
 	
 	#Constructor
-	def __init__(self, x, y, z, width, height, depth):
+	def __init__(self, x, y, z, width, height, depth, colour):
 		
 		#Call the super class
-		super(Cube, self).__init__(x, y, z, Shape.CUBE)
+		super(Cube, self).__init__(x, y, z, Shape.CUBE, colour)
 		
 		#Store the size properties
 		self.width = float(width)
@@ -96,7 +108,7 @@ class Cube(Shape):
 		
 		#Get the vertices, edges and sides from the mesh file
 		data = getMesh("Meshes/cube.mesh")
-		self.vertices = data[0]
+		self.addverts(data[0])
 		self.edges = data[1]
 		self.surfaces = data[2]
 		
