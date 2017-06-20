@@ -89,3 +89,23 @@ class Game(object):
 				
 		#End the gl drawing
 		glEnd()
+		
+	#Create a function to update the game state
+	def update(self):
+		
+		#Exit condition
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				quit()
+				
+		#Clear the buffers
+		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
+		
+		#Draw the shapes
+		render()
+		
+		#Update the display
+		pygame.display.flip()
+		
+	
