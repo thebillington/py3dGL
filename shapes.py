@@ -94,4 +94,11 @@ class Cube(Shape):
 		self.vertices = data[0]
 		self.edges = data[1]
 		self.sides = data[2]
-
+		
+		#Transform the vertices
+		for i in range(len(self.vertices)):
+			self.vertices[i] = ((self.vertices[i][0] * (width / 2)) + x, (self.vertices[i][1] * (height / 2)) + y, (self.vertices[i][2] * (depth / 2)) + z)
+			
+c = Cube(5, 0, 3, 10, 5, 1)
+for v in c.vertices:
+	print(v)
