@@ -79,4 +79,19 @@ class Shape(object):
 
 		#Return the distance between the shapes
 		return math.sqrt(math.pow(abs(self.x - s.x) , 2) + math.pow(abs(self.y - s.y)) + math.pow(abs(self.z - s.z), 2))
+		
+#Create a cube class that extends the properties of a basic shape
+class Cube(Shape):
+	
+	#Constructor
+	def __init__(self, x, y, z, width, height, depth):
+		
+		#Call the super class
+		super(Cube, self).__init__(x, y, z, Shape.CUBE)
+		
+		#Get the vertices, edges and sides from the mesh file
+		data = getMesh("Meshes/cube.mesh")
+		self.vertices = data[0]
+		self.edges = data[1]
+		self.sides = data[2]
 
