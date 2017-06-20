@@ -103,7 +103,3 @@ class Cube(Shape):
 		#Transform the vertices
 		for i in range(len(self.vertices)):
 			self.vertices[i] = ((self.vertices[i][0] * (self.width / 2)) + x, (self.vertices[i][1] * (self.height / 2)) + y, (self.vertices[i][2] * (self.depth / 2)) + z)
-			
-c = Cube(5, 0, 3, 10, 5, 1)
-for v in c.vertices:
-	print(v)
