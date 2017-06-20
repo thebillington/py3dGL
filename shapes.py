@@ -19,7 +19,7 @@ def getMesh(fname):
 	#Create empty lists to hold the data
 	vertices = []
 	edges = []
-	sides = []
+	surfaces = []
 	
 	#Loop over all of the vertices and add them to the list
 	for i in range(3, v + 3):
@@ -53,10 +53,10 @@ def getMesh(fname):
 			newside.append(int(p))
 			
 		#Add the side to the list of sides
-		sides.append(tuple(newside))
+		surfaces.append(tuple(newside))
 		
 	#Return the data
-	return (vertices, edges, sides)
+	return (vertices, edges, surfaces)
 	
 #Create a class to hold the properties of a basic shape
 class Shape(object):
@@ -98,7 +98,7 @@ class Cube(Shape):
 		data = getMesh("Meshes/cube.mesh")
 		self.vertices = data[0]
 		self.edges = data[1]
-		self.sides = data[2]
+		self.surfaces = data[2]
 		
 		#Transform the vertices
 		for i in range(len(self.vertices)):

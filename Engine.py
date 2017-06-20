@@ -29,7 +29,7 @@ class Game(object):
 		self.maxrender = 80
 		
 		#Set the pygame mode to use double buffering and open gl
-		pygame.set_mode(self.size, DOUBLEBUF|OPENGL)
+		pygame.display.set_mode(self.size, DOUBLEBUF|OPENGL)
 		
 		#Set the perspective
 		self.setperspective()
@@ -50,10 +50,10 @@ class Game(object):
 	#Create a function to render the shapes
 	def render(self):
 		#For each of the shapes, check the type and render it
-		for s in shapes:
+		for s in self.shapes:
 			#If the shape is a cube, call the rendercube method
 			if s.type == Shape.CUBE:
-				rendercube(s)
+				self.rendercube(s)
 				
 	#Create a function to render a cube
 	def rendercube(self, cube):
@@ -103,9 +103,22 @@ class Game(object):
 		glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT)
 		
 		#Draw the shapes
-		render()
+		self.render()
 		
 		#Update the display
 		pygame.display.flip()
 		
+#Create a game object
+g = Game("Cube Game", 800, 600, 1)
+
+#Create a cube
+c = Cube(0, 0, -5, 1, 1, 1)
+
+#Add the cube to the game
+g.addshape(c)
+
+#Game loop
+while True:
 	
+	#Update
+	g.update()
