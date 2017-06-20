@@ -91,6 +91,11 @@ class Shape(object):
 	#Create a function to move the object in space
 	def move(self,x, y, z):
 		
+		#Change the x y and z values
+		self.x += x
+		self.y += y
+		self.z += z
+		
 		#Move each of the vertices
 		for i in range(len(self.vertices)):
 			self.vertices[i] = (self.vertices[i][0] + x, self.vertices[i][1] + y, self.vertices[i][2] + z)
@@ -124,3 +129,19 @@ class Cube(Shape):
 		#Transform the vertices
 		for i in range(len(self.vertices)):
 			self.vertices[i] = ((self.vertices[i][0] * (self.width / 2)) + x, (self.vertices[i][1] * (self.height / 2)) + y, (self.vertices[i][2] * (self.depth / 2)) + z)
+
+	#Create a function to check collisions with other shapes
+	def collide(self, s):
+		
+		#If the shape is another cube
+		if s.type == Shape.CUBE:
+			
+			#Perform a cube on cube collision detection
+			
+			#Check collision on each axis
+			col_x = abs(self.x - s.x) < (self.width / 2) + (s.width / 2)
+			col_y = abs(self.y - s.y) < (self.height / 2) + (s.height / 2)
+			col_z = abs(self.z - s.z) < (self.depth / 2) + (s.depth / 2)
+			
+			#If there has been a collision on all three axes, return true
+			return (col_x and col_y and col_z)

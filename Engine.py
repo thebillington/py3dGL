@@ -131,10 +131,8 @@ class Game(object):
 g = Game("Cube Game", 800, 600, 1, maxr=120)
 
 #Create cubes
-ground = Cube(0, -5, -60, 10, 2, 100, bgcolour=(0.4,0.4,0.4))
-c = Cube(0, -1, -5, 1, 1, 1, bgcolour=(1, 0, 0))
-
-c.fillenabled(False)
+ground = Cube(0, -5, -60, 100, 2, 200, bgcolour=(0.4,0.4,0.4))
+c = Cube(0, -3, -25, 2, 2, 2, bgcolour=(1, 0, 0))
 
 #Add the cubes to the game
 g.addshape(ground)
@@ -150,14 +148,21 @@ while True:
 	keys = g.getkeys()
 	
 	#Movement
-	if keys[K_w]:
+	if keys[K_w] or keys[K_UP]:
 		c.move(0,0,-mspeed)
-	if keys[K_s]:
+	if keys[K_s] or keys[K_DOWN]:
 		c.move(0,0,mspeed)
-	if keys[K_a]:
+	if keys[K_a] or keys[K_LEFT]:
 		c.move(-mspeed,0,0)
-	if keys[K_d]:
+	if keys[K_d] or keys[K_RIGHT]:
 		c.move(mspeed,0,0)
+	if keys[K_h]:
+		c.move(0,-mspeed,0)
+	if keys[K_y]:
+		c.move(0,mspeed,0)
+		
+	#Print whether the shapes have collided
+	print(ground.collide(c))
 	
 	#Update
 	g.update()
