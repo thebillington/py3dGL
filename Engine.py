@@ -39,6 +39,7 @@ class Game(object):
 		
 		#GL settings
 		glEnable(GL_DEPTH_TEST)
+		glClearColor(bgcolour[0], bgcolour[1], bgcolour[2], bgcolour[3])
 		
 	#Create a function to add a shape
 	def addshape(self, s):
@@ -149,7 +150,7 @@ class Game(object):
 		glRotatef(multi, x, y, z)
 		
 #Create a game object
-g = Game("Cube Game", 800, 600, 1, maxr=120)
+g = Game("Cube Game", 800, 600, (0.8,0.8,0.8,1), maxr=120)
 
 #Create cubes
 ground = Cube(0, -5, -60, 100, 2, 200, bgcolour=(0.4,0.4,0.4))
