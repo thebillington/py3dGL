@@ -15,6 +15,9 @@ class Game(object):
 		
 		#Initialise pygame
 		pygame.init()
+		
+		#Set the window caption
+		pygame.display.set_caption(title)
 
 		#Set the size of the window
 		self.size = self.width, self.height = width, height
@@ -51,4 +54,38 @@ class Game(object):
 			#If the shape is a cube, call the rendercube method
 			if s.type == Shape.CUBE:
 				rendercube(s)
+				
+	#Create a function to render a cube
+	def rendercube(self, cube):
 	
+		#Start the gl drawing specifying a type of lines
+		glBegin(GL_QUADS)
+		
+		#Set the colour
+		glColor3fv((1, 0, 1))
+		
+		#For each of the surfaces
+		for surface in cube.surfaces:
+			#For each of the vertices in the surface
+			for vertex in surface:
+				#Draw the vertex
+				glVertex3fv(cube.vertices[vertex])
+				
+		#End the gl drawinf
+		glEnd()
+		
+		#Start the gl drawing specifying a type of lines
+		glBegin(GL_LINES)
+		
+		#Set the colour
+		glColor3fv((1, 1, 1))
+		
+		#For each of the edges
+		for edge in cube.edges:
+			#For each of the vertices in the edge
+			for vertex in edge:
+				#Draw the vertex
+				glVertex3fv(cube.vertices[vertex])
+				
+		#End the gl drawing
+		glEnd()
