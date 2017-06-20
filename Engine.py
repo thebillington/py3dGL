@@ -33,4 +33,10 @@ class Game(object):
 		
 		#Create an empty list of shapes to render
 		self.shapes = []
+		
+	#Create a function to update the perspective
+	def setperspective(self):
+		
+		#Set the perspective
+		gluPerspective(self.fov, self.aspectratio, self.minrender, self.maxrender)
 	
