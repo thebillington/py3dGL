@@ -37,7 +37,7 @@ class Game(object):
 		#Set the perspective
 		gluPerspective(self.fov, self.aspectratio, self.minrender, self.maxrender)
 		
-		#Enable depth testing
+		#GL settings
 		glEnable(GL_DEPTH_TEST)
 		
 	#Create a function to add a shape
@@ -134,14 +134,26 @@ class Game(object):
 					if event.key == key:
 						return True
 		except AttributeError:
-			raise RuntimeError("Ensure you have called 'Game.ispressed' after 'Game.update' in your execution.")
+			raise RuntimeError("Ensure you have called 'Game.ispressed()' after 'Game.update()' in your execution.")
+			
+	#Function to move the camera
+	def movecamera(self, x, y, z):
+		
+		#Translate within the world
+		glTranslatef(x, y, z)
+			
+	#Function to move the camera
+	def rotatecamera(self, multi, x, y, z):
+		
+		#Translate within the world
+		glRotatef(multi, x, y, z)
 		
 #Create a game object
 g = Game("Cube Game", 800, 600, 1, maxr=120)
 
 #Create cubes
 ground = Cube(0, -5, -60, 100, 2, 200, bgcolour=(0.4,0.4,0.4))
-player = Cube(0, -3, -25, 2, 2, 2, bgcolour=(1, 0, 0))
+player = Cube(0, -2, -25, 2, 4, 2, bgcolour=(1, 0, 0))
 
 #Add the cubes to the game
 g.addshape(ground)
@@ -156,6 +168,10 @@ fallspeed = 0.5
 yspeed = 0
 jumpspeed = 1
 jumped = False
+
+#Set the initial camera angle
+g.movecamera(0, -10, 0)
+g.rotatecamera(15, 1, 0, 0)
 
 #Game loop
 while True:
