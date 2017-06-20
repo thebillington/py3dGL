@@ -39,4 +39,16 @@ class Game(object):
 		
 		#Set the perspective
 		gluPerspective(self.fov, self.aspectratio, self.minrender, self.maxrender)
+		
+	#Create a function to add a shape
+	def addshape(self, s):
+		self.shapes.append(s)
+		
+	#Create a function to render the shapes
+	def render(self):
+		#For each of the shapes, check the type and render it
+		for s in shapes:
+			#If the shape is a cube, call the rendercube method
+			if s.type == Shape.CUBE:
+				rendercube(s)
 	
