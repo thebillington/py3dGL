@@ -89,6 +89,11 @@ class Cube(Shape):
 		#Call the super class
 		super(Cube, self).__init__(x, y, z, Shape.CUBE)
 		
+		#Store the size properties
+		self.width = float(width)
+		self.height = float(height)
+		self.depth = float(depth)
+		
 		#Get the vertices, edges and sides from the mesh file
 		data = getMesh("Meshes/cube.mesh")
 		self.vertices = data[0]
@@ -97,7 +102,7 @@ class Cube(Shape):
 		
 		#Transform the vertices
 		for i in range(len(self.vertices)):
-			self.vertices[i] = ((self.vertices[i][0] * (width / 2)) + x, (self.vertices[i][1] * (height / 2)) + y, (self.vertices[i][2] * (depth / 2)) + z)
+			self.vertices[i] = ((self.vertices[i][0] * (self.width / 2)) + x, (self.vertices[i][1] * (self.height / 2)) + y, (self.vertices[i][2] * (self.depth / 2)) + z)
 			
 c = Cube(5, 0, 3, 10, 5, 1)
 for v in c.vertices:
