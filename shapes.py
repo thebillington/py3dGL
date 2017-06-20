@@ -57,3 +57,26 @@ def getMesh(fname):
 		
 	#Return the data
 	return (vertices, edges, sides)
+	
+#Create a class to hold the properties of a basic shape
+class Shape(object):
+	
+	#Types
+	POINT = "point"
+	CUBE = "cube"
+	
+	#Constructor
+	def __init__(self, x, y, z, type):
+		
+		#Store the parameters
+		self.x = x
+		self.y = y
+		self.z = z
+		self.type = type
+
+	#Define pythagoral function
+	def pythagoras(self, s):
+
+		#Return the distance between the shapes
+		return math.sqrt(math.pow(abs(self.x - s.x) , 2) + math.pow(abs(self.y - s.y)) + math.pow(abs(self.z - s.z), 2))
+
