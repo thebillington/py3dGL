@@ -134,6 +134,8 @@ g = Game("Cube Game", 800, 600, 1, maxr=120)
 ground = Cube(0, -5, -60, 10, 2, 100, bgcolour=(0.4,0.4,0.4))
 c = Cube(0, -1, -5, 1, 1, 1, bgcolour=(1, 0, 0))
 
+c.fillenabled(False)
+
 #Add the cubes to the game
 g.addshape(ground)
 g.addshape(c)

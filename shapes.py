@@ -94,6 +94,12 @@ class Shape(object):
 		#Move each of the vertices
 		for i in range(len(self.vertices)):
 			self.vertices[i] = (self.vertices[i][0] + x, self.vertices[i][1] + y, self.vertices[i][2] + z)
+			
+	#Functions to enable/disable line drawing and fill drawing
+	def fillenabled(self, enabled):
+		self.fill = enabled
+	def lineenabled(self,enabled):
+		self.line = enabled
 		
 #Create a cube class that extends the properties of a basic shape
 class Cube(Shape):
