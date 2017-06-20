@@ -96,8 +96,11 @@ class Game(object):
 	#Create a function to update the game state
 	def update(self):
 		
+		#Get the events
+		self.events = pygame.event.get()
+		
 		#Exit condition
-		for event in pygame.event.get():
+		for event in self.events:
 			if event.type == QUIT:
 				pygame.quit()
 				quit()
@@ -114,6 +117,7 @@ class Game(object):
 		
 		#Update the display
 		pygame.display.flip()
+		pygame.time.wait(10)
 		
 	#Create a function to return the keys that are currently being pressed
 	def getkeys(self):
@@ -121,48 +125,74 @@ class Game(object):
 		
 	#Create a function to check whether a specific key is pressed
 	def ispressed(self, key):
-		#Check all events to see if a key has been pressed
-		for event in pygame.event.get():
-			if event.type == KEYDOWN:
-				if event.key == key:
-					return True
+		
+		#Check the user has called the update function before checking keys
+		try:
+			#Check all events to see if a key has been pressed
+			for event in self.events:
+				if event.type == KEYDOWN:
+					if event.key == key:
+						return True
+		except AttributeError:
+			raise RuntimeError("Ensure you have called 'Game.ispressed' after 'Game.update' in your execution.")
 		
 #Create a game object
 g = Game("Cube Game", 800, 600, 1, maxr=120)
 
 #Create cubes
 ground = Cube(0, -5, -60, 100, 2, 200, bgcolour=(0.4,0.4,0.4))
-c = Cube(0, -3, -25, 2, 2, 2, bgcolour=(1, 0, 0))
+player = Cube(0, -3, -25, 2, 2, 2, bgcolour=(1, 0, 0))
 
 #Add the cubes to the game
 g.addshape(ground)
-g.addshape(c)
+g.addshape(player)
 
 #Set the movement speed
 mspeed = 0.1
 
+#Physics contants
+gravity = 0.05
+fallspeed = 0.5
+yspeed = 0
+jumpspeed = 1
+jumped = False
+
 #Game loop
 while True:
+	
+	#Update
+	g.update()
 	
 	#Get the pressed keys
 	keys = g.getkeys()
 	
 	#Movement
 	if keys[K_w] or keys[K_UP]:
-		c.move(0,0,-mspeed)
+		player.move(0,0,-mspeed)
 	if keys[K_s] or keys[K_DOWN]:
-		c.move(0,0,mspeed)
+		player.move(0,0,mspeed)
 	if keys[K_a] or keys[K_LEFT]:
-		c.move(-mspeed,0,0)
+		player.move(-mspeed,0,0)
 	if keys[K_d] or keys[K_RIGHT]:
-		c.move(mspeed,0,0)
-	if keys[K_h]:
-		c.move(0,-mspeed,0)
-	if keys[K_y]:
-		c.move(0,mspeed,0)
+		player.move(mspeed,0,0)
 		
-	#Print whether the shapes have collided
-	print(ground.collide(c))
-	
-	#Update
-	g.update()
+	#Move the cube by the y speed
+	player.move(0, yspeed, 0)
+		
+	#Gravity
+	if yspeed > -fallspeed:
+		yspeed -= gravity
+		
+	#Check if the player has collided with the ground
+	if player.collide(ground):
+		#Set jumping to false and yspeed to 0
+		jumped = False
+		yspeed = 0
+		#Move the player out of the ground
+		while player.collide(ground):
+			player.move(0, gravity, 0)
+		
+	#Check if the space key is pressed and the player isn't currently jumping
+	if g.ispressed(K_SPACE) and not jumped:
+		yspeed = jumpspeed
+		jumped = True
