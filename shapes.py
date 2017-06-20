@@ -66,14 +66,17 @@ class Shape(object):
 	CUBE = "cube"
 	
 	#Constructor
-	def __init__(self, x, y, z, type, colour):
+	def __init__(self, x, y, z, type, bgcolour, linecolour, fill, line):
 		
 		#Store the parameters
 		self.x = x
 		self.y = y
 		self.z = z
 		self.type = type
-		self.colour = colour
+		self.bgcolour = bgcolour
+		self.linecolour = linecolour
+		self.fill = fill
+		self.line = line
 
 	#Define pythagoral function
 	def pythagoras(self, s):
@@ -96,10 +99,10 @@ class Shape(object):
 class Cube(Shape):
 	
 	#Constructor
-	def __init__(self, x, y, z, width, height, depth, colour):
+	def __init__(self, x, y, z, width, height, depth, bgcolour=(1,0,1), linecolour=(1,1,1), fill=True, line=True):
 		
 		#Call the super class
-		super(Cube, self).__init__(x, y, z, Shape.CUBE, colour)
+		super(Cube, self).__init__(x, y, z, Shape.CUBE, bgcolour, linecolour, fill, line)
 		
 		#Store the size properties
 		self.width = float(width)

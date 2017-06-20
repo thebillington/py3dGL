@@ -55,37 +55,43 @@ class Game(object):
 	#Create a function to render a cube
 	def rendercube(self, cube):
 		
-		#Start the gl drawing specifying a type of lines
-		glBegin(GL_LINES)
+		#If the background colour should be drawn
+		if cube.line:
 		
-		#Set the colour
-		glColor3fv((1, 1, 1))
-		
-		#For each of the edges
-		for edge in cube.edges:
-			#For each of the vertices in the edge
-			for vertex in edge:
-				#Draw the vertex
-				glVertex3fv(cube.vertices[vertex])
-				
-		#End the gl drawing
-		glEnd()
+			#Start the gl drawing specifying a type of lines
+			glBegin(GL_LINES)
+			
+			#Set the colour
+			glColor3fv(cube.linecolour)
+			
+			#For each of the edges
+			for edge in cube.edges:
+				#For each of the vertices in the edge
+				for vertex in edge:
+					#Draw the vertex
+					glVertex3fv(cube.vertices[vertex])
+					
+			#End the gl drawing
+			glEnd()
+			
+		#If the lines should be drawn
+		if cube.fill:
 	
-		#Start the gl drawing specifying a type of lines
-		glBegin(GL_QUADS)
-		
-		#Set the colour
-		glColor3fv(cube.colour)
-		
-		#For each of the surfaces
-		for surface in cube.surfaces:
-			#For each of the vertices in the surface
-			for vertex in surface:
-				#Draw the vertex
-				glVertex3fv(cube.vertices[vertex])
-				
-		#End the gl drawing
-		glEnd()
+			#Start the gl drawing specifying a type of lines
+			glBegin(GL_QUADS)
+			
+			#Set the colour
+			glColor3fv(cube.bgcolour)
+			
+			#For each of the surfaces
+			for surface in cube.surfaces:
+				#For each of the vertices in the surface
+				for vertex in surface:
+					#Draw the vertex
+					glVertex3fv(cube.vertices[vertex])
+					
+			#End the gl drawing
+			glEnd()
 		
 	#Create a function to update the game state
 	def update(self):
@@ -125,8 +131,8 @@ class Game(object):
 g = Game("Cube Game", 800, 600, 1, maxr=120)
 
 #Create cubes
-ground = Cube(0, -5, -60, 10, 2, 100, (0.4,0.4,0.4))
-c = Cube(0, -1, -5, 1, 1, 1, (1, 0, 0))
+ground = Cube(0, -5, -60, 10, 2, 100, bgcolour=(0.4,0.4,0.4))
+c = Cube(0, -1, -5, 1, 1, 1, bgcolour=(1, 0, 0))
 
 #Add the cubes to the game
 g.addshape(ground)
