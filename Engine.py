@@ -37,6 +37,9 @@ class Game(object):
 		#Set the perspective
 		gluPerspective(self.fov, self.aspectratio, self.minrender, self.maxrender)
 		
+		#Enable depth testing
+		glEnable(GL_DEPTH_TEST)
+		
 	#Create a function to add a shape
 	def addshape(self, s):
 		self.shapes.append(s)
@@ -51,22 +54,6 @@ class Game(object):
 				
 	#Create a function to render a cube
 	def rendercube(self, cube):
-	
-		#Start the gl drawing specifying a type of lines
-		glBegin(GL_QUADS)
-		
-		#Set the colour
-		glColor3fv(cube.colour)
-		
-		#For each of the surfaces
-		for surface in cube.surfaces:
-			#For each of the vertices in the surface
-			for vertex in surface:
-				#Draw the vertex
-				glVertex3fv(cube.vertices[vertex])
-				
-		#End the gl drawinf
-		glEnd()
 		
 		#Start the gl drawing specifying a type of lines
 		glBegin(GL_LINES)
@@ -78,6 +65,22 @@ class Game(object):
 		for edge in cube.edges:
 			#For each of the vertices in the edge
 			for vertex in edge:
+				#Draw the vertex
+				glVertex3fv(cube.vertices[vertex])
+				
+		#End the gl drawing
+		glEnd()
+	
+		#Start the gl drawing specifying a type of lines
+		glBegin(GL_QUADS)
+		
+		#Set the colour
+		glColor3fv(cube.colour)
+		
+		#For each of the surfaces
+		for surface in cube.surfaces:
+			#For each of the vertices in the surface
+			for vertex in surface:
 				#Draw the vertex
 				glVertex3fv(cube.vertices[vertex])
 				
@@ -106,6 +109,18 @@ class Game(object):
 		#Update the display
 		pygame.display.flip()
 		
+	#Create a function to return the keys that are currently being pressed
+	def getkeys(self):
+		return pygame.key.get_pressed()
+		
+	#Create a function to check whether a specific key is pressed
+	def ispressed(self, key):
+		#Check all events to see if a key has been pressed
+		for event in pygame.event.get():
+			if event.type == KEYDOWN:
+				if event.key == key:
+					return True
+		
 #Create a game object
 g = Game("Cube Game", 800, 600, 1, maxr=120)
 
@@ -117,8 +132,24 @@ c = Cube(0, -1, -5, 1, 1, 1, (1, 0, 0))
 g.addshape(ground)
 g.addshape(c)
 
+#Set the movement speed
+mspeed = 0.1
+
 #Game loop
 while True:
+	
+	#Get the pressed keys
+	keys = g.getkeys()
+	
+	#Movement
+	if keys[K_w]:
+		c.move(0,0,-mspeed)
+	if keys[K_s]:
+		c.move(0,0,mspeed)
+	if keys[K_a]:
+		c.move(-mspeed,0,0)
+	if keys[K_d]:
+		c.move(mspeed,0,0)
 	
 	#Update
 	g.update()
