@@ -5,7 +5,7 @@ from pygame.locals import *
 from OpenGL.GL import *
 from OpenGL.GLU import *
 
-from shapes import Shape, Cube
+from Shapes import Shape, Cube
 
 #Create a game class
 class Game(object):
@@ -148,68 +148,3 @@ class Game(object):
 		
 		#Translate within the world
 		glRotatef(multi, x, y, z)
-		
-#Create a game object
-g = Game("Cube Game", 800, 600, (0.8,0.8,0.8,1), maxr=120)
-
-#Create cubes
-ground = Cube(0, -5, -60, 100, 2, 200, bgcolour=(0.4,0.4,0.4))
-player = Cube(0, -2, -25, 2, 4, 2, bgcolour=(1, 0, 0))
-
-#Add the cubes to the game
-g.addshape(ground)
-g.addshape(player)
-
-#Set the movement speed
-mspeed = 0.1
-
-#Physics contants
-gravity = 0.05
-fallspeed = 0.5
-yspeed = 0
-jumpspeed = 1
-jumped = False
-
-#Set the initial camera angle
-g.movecamera(0, -10, 0)
-g.rotatecamera(15, 1, 0, 0)
-
-#Game loop
-while True:
-	
-	#Update
-	g.update()
-	
-	#Get the pressed keys
-	keys = g.getkeys()
-	
-	#Movement
-	if keys[K_w] or keys[K_UP]:
-		player.move(0,0,-mspeed)
-	if keys[K_s] or keys[K_DOWN]:
-		player.move(0,0,mspeed)
-	if keys[K_a] or keys[K_LEFT]:
-		player.move(-mspeed,0,0)
-	if keys[K_d] or keys[K_RIGHT]:
-		player.move(mspeed,0,0)
-		
-	#Move the cube by the y speed
-	player.move(0, yspeed, 0)
-		
-	#Gravity
-	if yspeed > -fallspeed:
-		yspeed -= gravity
-		
-	#Check if the player has collided with the ground
-	if player.collide(ground):
-		#Set jumping to false and yspeed to 0
-		jumped = False
-		yspeed = 0
-		#Move the player out of the ground
-		while player.collide(ground):
-			player.move(0, gravity, 0)
-		
-	#Check if the space key is pressed and the player isn't currently jumping
-	if g.ispressed(K_SPACE) and not jumped:
-		yspeed = jumpspeed
-		jumped = True
