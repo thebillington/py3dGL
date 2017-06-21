@@ -1,3 +1,6 @@
+#Imports
+from FileHandler import get_data
+
 #Create a function to get a mesh file 'f'
 def getMesh(fname):
 	
@@ -121,7 +124,7 @@ class Cube(Shape):
 		self.depth = float(depth)
 		
 		#Get the vertices, edges and sides from the mesh file
-		data = getMesh("Meshes/cube.mesh")
+		data = getMesh(get_data("Meshes", "cube.mesh"))
 		self.addverts(data[0])
 		self.edges = data[1]
 		self.surfaces = data[2]

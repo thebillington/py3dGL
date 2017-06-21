@@ -8,4 +8,8 @@ setup(name='pyPhys3D',
       author_email='billy.rebecchi@googlemail.com',
       license='MIT',
       packages=['pyPhys3D'],
+      data_files=[
+		('Meshes' , ["pyPhys3D/Meshes/cube.mesh"]),
+      ],
+      include_package_data=True,
       zip_safe=False)
