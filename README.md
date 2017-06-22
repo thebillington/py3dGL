@@ -338,3 +338,5 @@ while True:
 		yspeed = jumpspeed
 		jumped = True
 ```
+
+[![Gravity Example on Youtube](https://img.youtube.com/vi/BhxI-G_h5Z8/0.jpg)](https://www.youtube.com/watch?v=BhxI-G_h5Z8)
