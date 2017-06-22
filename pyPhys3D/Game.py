@@ -8,9 +8,9 @@ from pygame.locals import *
 g = Game("Cube Game", 800, 600, (0.8,0.8,0.8,1), maxr=120)
 
 #Create cubes
-ground = Cube(0, -5, -60, 100, 2, 200, bgcolour=(0.4,0.4,0.4))
-player1 = Cube(-2, -3, -25, 2, 2, 2, bgcolour=(1, 0, 0), linecolour=(0, 0, 0))
-player2 = Cube(2, -3, -25, 2, 2, 2, bgcolour=(0, 1, 0), linecolour=(0, 0, 0))
+ground = Cube(0, -5, -60, 100, 2, 200, fillcolour=(0.4,0.4,0.4))
+player1 = Cube(-2, -3, -25, 2, 2, 2, fillcolour=(1, 0, 0), linecolour=(0, 0, 0))
+player2 = Cube(2, -3, -25, 2, 2, 2, fillcolour=(0, 1, 0), linecolour=(0, 0, 0))
 
 #Add the cubes to the game
 g.addshape(ground)
@@ -31,6 +31,7 @@ jumped = False
 #Set the initial camera angle
 g.movecamera(0, -10, 0)
 g.rotatecamera(15, 1, 0, 0)
+g.rotatecamera(15, 0, -1, 0)
 
 #Game loop
 while True:

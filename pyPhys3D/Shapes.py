@@ -69,14 +69,14 @@ class Shape(object):
 	CUBE = "cube"
 	
 	#Constructor
-	def __init__(self, x, y, z, type, bgcolour, linecolour, fill, line):
+	def __init__(self, x, y, z, type, fillcolour, linecolour, fill, line):
 		
 		#Store the parameters
 		self.x = x
 		self.y = y
 		self.z = z
 		self.type = type
-		self.bgcolour = bgcolour
+		self.fillcolour = fillcolour
 		self.linecolour = linecolour
 		self.fill = fill
 		self.line = line
@@ -104,19 +104,19 @@ class Shape(object):
 			self.vertices[i] = (self.vertices[i][0] + x, self.vertices[i][1] + y, self.vertices[i][2] + z)
 			
 	#Functions to enable/disable line drawing and fill drawing
-	def fillenabled(self, enabled):
+	def enablefill(self, enabled):
 		self.fill = enabled
-	def lineenabled(self,enabled):
+	def enableline(self,enabled):
 		self.line = enabled
 		
 #Create a cube class that extends the properties of a basic shape
 class Cube(Shape):
 	
 	#Constructor
-	def __init__(self, x, y, z, width, height, depth, bgcolour=(1,0,1), linecolour=(1,1,1), fill=True, line=True):
+	def __init__(self, x, y, z, width, height, depth, fillcolour=(1,0,1), linecolour=(1,1,1), fill=True, line=True):
 		
 		#Call the super class
-		super(Cube, self).__init__(x, y, z, Shape.CUBE, bgcolour, linecolour, fill, line)
+		super(Cube, self).__init__(x, y, z, Shape.CUBE, fillcolour, linecolour, fill, line)
 		
 		#Store the size properties
 		self.width = float(width)

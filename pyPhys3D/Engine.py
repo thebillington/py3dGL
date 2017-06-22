@@ -82,7 +82,7 @@ class Game(object):
 			glBegin(GL_QUADS)
 			
 			#Set the colour
-			glColor3fv(cube.bgcolour)
+			glColor3fv(cube.fillcolour)
 			
 			#For each of the surfaces
 			for surface in cube.surfaces:
